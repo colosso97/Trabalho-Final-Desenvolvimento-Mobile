@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function AppRouter() {
+export default function Detalhe() {
     return (
         <View>
-            <Text>AppRouter</Text>
+            <Text>Detalhe</Text>
         </View>
     )
 }
