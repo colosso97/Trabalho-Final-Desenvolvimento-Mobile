@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./src/screens/Home";
-import Adotar from "./src/screens/Adotar";
+import Detalhe from "./src/screens/Detalhe";
 import Perfil from "./src/screens/Perfil";
 import { Feather } from "@expo/vector-icons";
 
@@ -31,8 +31,8 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Adotar"
-          component={Adotar}
+          name="Detalhe"
+          component={Detalhe}
           options={{
             tabBarIcon: ({ color, size }) => {
               return <Feather name="file-text" color={color} size={size} />;
