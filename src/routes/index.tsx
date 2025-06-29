@@ -51,6 +51,7 @@ export default function AppRouter() {
                 name="Login"
                 component={Login}
                 options={{
+                    headerShown: false,
                     tabBarIcon: ({ color, size }) => {
                         return <AntDesign name="user" color={color} size={size} />;
                     },
