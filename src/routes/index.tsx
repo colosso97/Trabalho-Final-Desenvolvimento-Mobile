@@ -14,7 +14,7 @@ export default function AppRouter() {
             screenOptions={{
                 headerShown: true,
                 tabBarActiveTintColor: "#fff",
-                tabBarInactiveTintColor: "#555555",
+                tabBarInactiveTintColor: "#ededed",
                 tabBarInactiveBackgroundColor: "#7abfcf",
                 tabBarActiveBackgroundColor: "#517d86",
                 tabBarShowLabel: false,
