@@ -14,7 +14,7 @@ export default function AppRouter() {
             screenOptions={{
                 headerShown: true,
                 tabBarActiveTintColor: "#fff",
-                tabBarInactiveTintColor: "#555555",
+                tabBarInactiveTintColor: "#ededed",
                 tabBarInactiveBackgroundColor: "#7abfcf",
                 tabBarActiveBackgroundColor: "#517d86",
                 tabBarShowLabel: false,
@@ -51,6 +51,7 @@ export default function AppRouter() {
                 name="Login"
                 component={Login}
                 options={{
+                    headerShown: false,
                     tabBarIcon: ({ color, size }) => {
                         return <AntDesign name="user" color={color} size={size} />;
                     },
