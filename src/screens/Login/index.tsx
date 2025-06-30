@@ -17,7 +17,6 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [usuario, setUsuario] = useState('');
     const [senha, setSenha] = useState('');
-    const [carregando, setCarregando] = useState(false);
     const {login} = useContext(AuthContext);
 
 
@@ -46,7 +45,6 @@ export default function Login() {
 
     async function handleLogin() {
         try {
-            setCarregando(true);
             if (!email || !senha) {
                 Alert.alert("Atenção", "Preencha todos os campos!");
                 return;
@@ -97,7 +95,7 @@ export default function Login() {
                     placeholder="Digite sua senha"
                     value={senha}
                     onChangeText={setSenha}
-                    //secureTextEntry
+                    secureTextEntry
                     accessibilityLabel="Campo para digitar sua senha"
                 />
 
