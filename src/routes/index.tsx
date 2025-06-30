@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from "@expo/vector-icons";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Home from '../screens/Home';
-import Perfil from '../screens/Detalhe';
+import Perfil from '../screens/Perfil';
 import Detalhe from '../screens/Detalhe';
 import Login from '../screens/Login';
 
