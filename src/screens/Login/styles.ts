@@ -49,7 +49,6 @@ export const styles = StyleSheet.create({
         boxShadow: '5px 5px 10px rgb(67, 67, 67)'
     },
     texto: {
-        fontSize: 18,
         color: '#517d86',
         fontWeight: "bold"
     }
