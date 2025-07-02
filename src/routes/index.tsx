@@ -7,6 +7,7 @@ import Perfil from '../screens/Perfil';
 import Detalhe from '../screens/Detalhe';
 import Login from '../screens/Login';
 import { AuthContext } from '../context/AuthContext';
+import LoadingScreen from '../screens/Splash/LoadingScreen';
 
 const Tab = createBottomTabNavigator();
 export default function AppRouter() {
