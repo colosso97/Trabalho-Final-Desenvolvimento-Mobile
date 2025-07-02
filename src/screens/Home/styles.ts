@@ -1,6 +1,25 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+  containerNet: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  offlineContainer: {
+    flex: 1,
+    backgroundColor: "#b52424",
+    alignItems: "center",
+    flexDirection: "row",
+    position: "absolute",
+    height: 100,
+  },
+  offlineText: {
+    color: "#fff",
+    marginLeft: 30,
+    marginRight: 20,
+  },
+
   cardUsuario: {
     backgroundColor: "#7abfcf",
     color: "#fff",
@@ -146,85 +165,5 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     marginRight: 10,
     fontFamily: "LeagueSpartan_400Regular",
-  },
-
-  ///testando outro card
-
-  container: {
-    flex: 1,
-    backgroundColor: "#fef6f2",
-    paddingTop: 30,
-    paddingHorizontal: 20,
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  petCard: {
-    flexDirection: "row",
-    backgroundColor: "#fff",
-    padding: 12,
-    borderRadius: 20,
-    alignItems: "center",
-    marginBottom: 10,
-    elevation: 2,
-  },
-  petNome: {
-    fontSize: 18,
-    color: "#333",
-    marginLeft: 50,
-    fontFamily: "LeagueSpartan_400Regular",
-  },
-  petRaca: {
-    fontSize: 13,
-    color: "#666",
-    marginLeft: 50,
-    fontFamily: "LeagueSpartan_400Regular",
-  },
-  btnDetalhes: {
-    backgroundColor: "#7abfcf",
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    justifyContent: "center",
-    alignItems: "center",
-    marginLeft: 10,
-  },
-
-  petCardWrapper: {
-    marginBottom: 30,
-    position: "relative",
-    alignItems: "center",
-  },
-
-  petCard2: {
-    flexDirection: "row",
-    backgroundColor: "#fff",
-    padding: 16,
-    borderRadius: 20,
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-    paddingLeft: 90, //  espaço para a imagem sobrepor
-    elevation: 2,
-  },
-
-  /// efeito de overlap da imagem
-  petImagem: {
-    width: 110,
-    height: 110,
-    borderRadius: 50,
-    position: "absolute",
-    top: -35,
-    left: 10,
-    zIndex: 10,
-    borderWidth: 4,
-    borderColor: "#fff",
-  },
-
-  petInfo: {
-    flex: 1,
-    paddingRight: 20,
   },
 });
