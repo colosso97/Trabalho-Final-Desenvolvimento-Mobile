@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, SafeAreaView, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, SafeAreaView, Alert, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { styles } from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Feather from '@expo/vector-icons/Feather';
@@ -15,31 +15,28 @@ interface FormData {
 
 export default function Login() {
     const [email, setEmail] = useState('');
-    const [usuario, setUsuario] = useState('');
     const [senha, setSenha] = useState('');
-    const {login} = useContext(AuthContext);
+    const { login } = useContext(AuthContext);
 
 
     useEffect(() => {
         async function carregarUsuario() {
-            const value = await AsyncStorage.getItem("@usuario");
+            const value = await AsyncStorage.getItem("@email");
             if (value) {
-                setUsuario(value);
+                setEmail(value);
             }
         }
-
-
 
         carregarUsuario();
     }, []);
 
     async function gravarUsuario() {
         try {
-            await AsyncStorage.setItem("@usuario", usuario);
-            Alert.alert("Sucesso", "Usuário salvo!");
+            await AsyncStorage.setItem("@email", email);
+            Alert.alert("Sucesso", "E-mail salvo!");
         } catch (error) {
             Alert.alert("Erro", "Não foi possível salvar o usuário.");
-            setUsuario("");
+            setEmail("");
         }
     }
 
@@ -50,23 +47,25 @@ export default function Login() {
                 return;
             }
 
-            const resposta = await axios.post(`http://192.168.1.12:8080/auth/login`, {
+            const resposta = await api.post(`/login`, {
                 username: email,
                 password: senha
             });
 
             const dados = resposta.data;
-            await AsyncStorage.setItem("@token", dados.token);         
-            login(dados.token, dados.user);
+            const armazenaToken = resposta.headers.authorization;
+            await AsyncStorage.setItem("@token", armazenaToken);
+            login(armazenaToken, dados.user);
             gravarUsuario();
-        } catch(error) {
+        } catch (error) {
             console.error(error);
-            
+
         }
     }
 
     return (
         <SafeAreaView style={styles.conteudo}>
+
             <View style={styles.conteudoLogo}>
                 <Animatable.Image
                     animation="flipInY"
@@ -77,32 +76,32 @@ export default function Login() {
             </View>
 
             <Animatable.View delay={600} animation="fadeInUp" style={styles.conteudoForm}>
-                <Text style={styles.titulo}>Usuário:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Digite seu usuário"
-                    value={email}
-                    autoCapitalize="none"
-                    // onChangeText={setUsuario}
-                    onChangeText={setEmail}
-                    autoCorrect={false}
-                    accessibilityLabel="Campo para digitar o nome de usuário"
-                />
+                <KeyboardAvoidingView>
+                    <Text style={styles.titulo}>Usuário:</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Digite seu usuário"
+                        value={email}
+                        autoCapitalize="none"
+                        onChangeText={setEmail}
+                        autoCorrect={false}
+                        accessibilityLabel="Campo para digitar o nome de usuário"
+                    />
 
-                <Text style={styles.titulo}>Senha:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Digite sua senha"
-                    value={senha}
-                    onChangeText={setSenha}
-                    secureTextEntry
-                    accessibilityLabel="Campo para digitar sua senha"
-                />
-
-                <TouchableOpacity style={styles.botao} onPress={handleLogin}>
-                    <Text style={styles.texto}>Acessar</Text>
-                    <Feather name="arrow-right" size={24} color="#517d86" />
-                </TouchableOpacity>
+                    <Text style={styles.titulo}>Senha:</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Digite sua senha"
+                        value={senha}
+                        onChangeText={setSenha}
+                        secureTextEntry
+                        accessibilityLabel="Campo para digitar sua senha"
+                    />
+                    <TouchableOpacity style={styles.botao} onPress={handleLogin}>
+                        <Text style={styles.texto}>Acessar</Text>
+                        <Feather name="arrow-right" size={24} color="#517d86" />
+                    </TouchableOpacity>
+                </KeyboardAvoidingView>
             </Animatable.View>
         </SafeAreaView>
     );
