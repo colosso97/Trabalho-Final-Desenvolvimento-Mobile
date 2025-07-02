@@ -1,6 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, SafeAreaView, Alert, ScrollView, KeyboardAvoidingView } from 'react-native';
-import { styles } from './styles';
+import React, { useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Feather from '@expo/vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
@@ -8,15 +6,18 @@ import api from '../../services/api';
 import { AuthContext } from '../../context/AuthContext';
 import Checkbox from 'expo-checkbox';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { Alert, KeyboardAvoidingView, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { styles } from './styles';
 
 type TabParamList = {
-  Home: undefined;
+    Home: undefined;
 };
 
 export default function Login() {
-    const [email, setEmail] = useState('');
+    
     const [senha, setSenha] = useState('');
     const [isChecked, setChecked] = useState(false);
+    const [email, setEmail] = useState('');
     const [isSenha, setIsSenha] = useState(true);
     const navigation = useNavigation<NavigationProp<TabParamList>>();
     const { login } = useContext(AuthContext);
@@ -24,7 +25,7 @@ export default function Login() {
     useEffect(() => {
         async function carregarUsuario() {
             const value = await AsyncStorage.getItem("@email");
-            if (value)  setEmail(value);
+            if (value) setEmail(value);
         }
         carregarUsuario();
     }, []);
@@ -89,7 +90,7 @@ export default function Login() {
                     <Text style={styles.titulo}>Senha:</Text>
                     <View style={styles.senha}>
                         <TextInput
-                            style={[styles.input,  styles.inputSenha]}
+                            style={[styles.input, styles.inputSenha]}
                             placeholder="Digite sua senha"
                             value={senha}
                             onChangeText={setSenha}
@@ -97,11 +98,11 @@ export default function Login() {
                             accessibilityLabel="Campo para digitar sua senha"
                         />
                         {isSenha ?
-                            <TouchableOpacity style={styles.visualizarSenha} onPress={() => {setIsSenha(!isSenha)}}>
+                            <TouchableOpacity style={styles.visualizarSenha} onPress={() => { setIsSenha(!isSenha) }}>
                                 <Feather name="eye" size={20} color="#517d86" />
                             </TouchableOpacity>
                             :
-                            <TouchableOpacity style={styles.visualizarSenha}onPress={() => {setIsSenha(!isSenha)}}>
+                            <TouchableOpacity style={styles.visualizarSenha} onPress={() => { setIsSenha(!isSenha) }}>
                                 <Feather name="eye-off" size={20} color="#517d86" />
                             </TouchableOpacity>
                         }
