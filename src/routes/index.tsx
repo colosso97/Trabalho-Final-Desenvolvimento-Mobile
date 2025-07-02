@@ -39,7 +39,7 @@ export default function AppRouter() {
                     },
                 }}
             />
-            {!isAuthenticated ?
+            {isAuthenticated ?
                 <Tab.Screen
                     name="Perfil"
                     component={Perfil}
