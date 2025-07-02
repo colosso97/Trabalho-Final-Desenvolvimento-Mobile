@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./styles";
@@ -14,6 +15,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import api from "../../services/api";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import NetInfo from "@react-native-community/netinfo";
+import Feather from '@expo/vector-icons/Feather';
 
 interface DadosPet {
   id: number;
@@ -31,7 +33,7 @@ export default function Home() {
   const [pets, setPets] = useState<DadosPet[]>([]);
   const navigation = useNavigation<NavigationProp<TabParamList>>();
   const [filtroEspecie, setFiltroEspecie] = useState("");
-  const [isConnected, setIsConnected] = useState(true);
+  const [isConnected, setIsConnected] = useState<boolean | null>(true);
   const [isLoading, setIsLoading] = useState(true);
 
   //const buscarPets = async () => {
@@ -103,85 +105,87 @@ export default function Home() {
   }
 
   return (
-    <ScrollView>
-      <TouchableOpacity onPress={() => navigation.navigate("Perfil")}>
-        <View style={styles.cardUsuario}>
+    <SafeAreaView>
+      <ScrollView>
+        <TouchableOpacity onPress={() => navigation.navigate("Perfil")}>
+          <View style={styles.cardUsuario}>
+            <Feather name="user" size={30} color="white" />
+            <Text style={styles.nome}>Olá!</Text> 
+          </View>
+        </TouchableOpacity>
+
+        <View style={styles.cardDestaque}>
+          <View style={styles.destaqueTextoContainer}>
+            <Text style={styles.destaqueTexto}>Encontre seu novo pet</Text>
+          </View>
           <Image
-            style={styles.imgUsuario}
-            source={require("../../../assets/usuario-exemplo.png")}
+            source={require("../../../assets/adocao.png")}
+            style={styles.destaqueImagem}
+            resizeMode="contain"
           />
-          <Text style={styles.nomeUsuario}>Olá, Marcelo!</Text>
         </View>
-      </TouchableOpacity>
 
-      <View style={styles.cardDestaque}>
-        <View style={styles.destaqueTextoContainer}>
-          <Text style={styles.destaqueTexto}>Encontre seu novo pet</Text>
-        </View>
-        <Image
-          source={require("../../../assets/adocao.png")}
-          style={styles.destaqueImagem}
-          resizeMode="contain"
-        />
-      </View>
+        <View style={styles.cardCategorias}>
+          <Text style={styles.categoriasTitulo}>Categorias</Text>
+          <View style={styles.categoriasWrapper}>
+            <TouchableOpacity onPress={() => buscarPorEspecie("cachorro")}>
+              <View style={styles.categoriaCard}>
+                <FontAwesome6 name="dog" size={24} color="#7abfcf" />
+                <Text style={styles.categoriaTexto}>Cachorros</Text>
+              </View>
+            </TouchableOpacity>
 
-      <View style={styles.cardCategorias}>
-        <Text style={styles.categoriasTitulo}>Categorias</Text>
-        <View style={styles.categoriasWrapper}>
-          <TouchableOpacity onPress={() => buscarPorEspecie("cachorro")}>
-            <View style={styles.categoriaCard}>
-              <FontAwesome6 name="dog" size={24} color="#7abfcf" />
-              <Text style={styles.categoriaTexto}>Cachorros</Text>
-            </View>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => buscarPorEspecie("gato")}>
+              <View style={styles.categoriaCard}>
+                <FontAwesome5 name="cat" size={24} color="#7abfcf" />
+                <Text style={styles.categoriaTexto}>Gatos</Text>
+              </View>
+            </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => buscarPorEspecie("gato")}>
-            <View style={styles.categoriaCard}>
-              <FontAwesome5 name="cat" size={24} color="#7abfcf" />
-              <Text style={styles.categoriaTexto}>Gatos</Text>
-            </View>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => buscarPorEspecie("passaro")}>
+              <View style={styles.categoriaCard}>
+                <MaterialCommunityIcons name="bird" size={24} color="#7abfcf" />
+                <Text style={styles.categoriaTexto}>Pássaros</Text>
+              </View>
+            </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => buscarPorEspecie("passaro")}>
-            <View style={styles.categoriaCard}>
-              <MaterialCommunityIcons name="bird" size={24} color="#7abfcf" />
-              <Text style={styles.categoriaTexto}>Pássaros</Text>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => buscarPorEspecie("outro")}>
-            <View style={styles.categoriaCard}>
-              <MaterialCommunityIcons name="rabbit" size={24} color="#7abfcf" />
-              <Text style={styles.categoriaTexto}>Outros</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={styles.listaDog}>
-        {pets.map((pet) => (
-          <View key={pet.id} style={styles.cardDog}>
-            <Image style={styles.imgDog} source={{ uri: pet.foto }} />
-            <View style={styles.dogInfo}>
-              <Text style={styles.dogNome}>{pet.nome}</Text>
-              <Text style={styles.dogRaca}>{pet.raca}</Text>
-              <Text style={styles.dogId}>{pet.id}</Text>
-            </View>
-
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Detalhe", { id: pet.id })}
-            >
-              <View style={styles.detalhesContainer}>
-                <Image
-                  source={require("../../../assets/patinhas.png")}
-                  style={styles.patinha}
+            <TouchableOpacity onPress={() => buscarPorEspecie("outro")}>
+              <View style={styles.categoriaCard}>
+                <MaterialCommunityIcons
+                  name="rabbit"
+                  size={24}
+                  color="#7abfcf"
                 />
-                <Text style={styles.verDetalhes}>Ver Detalhes</Text>
+                <Text style={styles.categoriaTexto}>Outros</Text>
               </View>
             </TouchableOpacity>
           </View>
-        ))}
-      </View>
-    </ScrollView>
+        </View>
+
+        <View style={styles.listaDog}>
+          {pets.map((pet) => (
+            <View key={pet.id} style={styles.cardDog}>
+              <Image style={styles.imgDog} source={{ uri: pet.foto }} />
+              <View style={styles.dogInfo}>
+                <Text style={styles.dogNome}>{pet.nome}</Text>
+                <Text style={styles.dogRaca}>{pet.raca}</Text>
+              </View>
+
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Detalhe", { id: pet.id })}
+              >
+                <View style={styles.detalhesContainer}>
+                  <Image
+                    source={require("../../../assets/patinhas.png")}
+                    style={styles.patinha}
+                  />
+                  <Text style={styles.verDetalhes}>Ver Detalhes</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }

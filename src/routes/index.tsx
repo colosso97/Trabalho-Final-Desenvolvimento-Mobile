@@ -1,24 +1,28 @@
-import React, { useContext } from 'react'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { useContext } from "react";
+import { BottomTabBarButtonProps, createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
-import AntDesign from '@expo/vector-icons/AntDesign';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from '../screens/Home';
-import Perfil from '../screens/Perfil';
-import Detalhe from '../screens/Detalhe';
-import Login from '../screens/Login';
-import { AuthContext } from '../context/AuthContext';
-import TelaSplash from '../screens/Splash/TelaSplash';
+import AntDesign from "@expo/vector-icons/AntDesign";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Home from "../screens/Home";
+import Perfil from "../screens/Perfil";
+import Detalhe from "../screens/Detalhe";
+import Login from "../screens/Login";
+import { AuthContext } from "../context/AuthContext";
+import TelaSplash from "../screens/Splash/TelaSplash";
+import { TouchableOpacity } from "react-native";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function AppTabs() {
     const { isAuthenticated } = useContext(AuthContext);
+    const DisabledTabBarButton = ({ style, ...props }: any) => (
+        <TouchableOpacity disabled={true} style={[{ opacity: 1 }, style]} {...props} />
+    )
     return (
         <Tab.Navigator
             screenOptions={{
-                headerShown: true,
+                headerShown: false,
                 tabBarActiveTintColor: "#fff",
                 tabBarInactiveTintColor: "#ededed",
                 tabBarInactiveBackgroundColor: "#7abfcf",
@@ -41,6 +45,7 @@ function AppTabs() {
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="file-text" color={color} size={size} />
                     ),
+                    tabBarButton: DisabledTabBarButton,
                 }}
             />
             {isAuthenticated ? (

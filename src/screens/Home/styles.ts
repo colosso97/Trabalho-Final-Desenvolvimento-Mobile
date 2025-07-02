@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
 
-  nomeUsuario: {
+  nome: {
     padding: 10,
     fontFamily: "LeagueSpartan_600SemiBold",
     fontSize: 15,
