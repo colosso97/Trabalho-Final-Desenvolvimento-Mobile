@@ -35,7 +35,32 @@ export const styles = StyleSheet.create({
         borderRadius: 15,
         marginVertical: 10,
         marginHorizontal: 10,
-        boxShadow: '5px 5px 10px rgb(67, 67, 67)'
+        boxShadow: '5px 5px 10px rgb(67, 67, 67)',
+        
+    },
+    inputSenha: {
+        flex: 1
+    },
+    senha: {
+        flexDirection: 'row', 
+        justifyContent: 'flex-end',
+        alignItems: "center",
+        position: "relative"
+    },
+    visualizarSenha:{
+        position: "absolute",
+        marginRight: 20
+    },
+    conteudoCheckBox:{
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    caixa:{
+        margin: 10
+    },
+    textoCheckBox: {
+        color: '#ffffff',
+        fontWeight: "bold"
     },
     botao: {
         backgroundColor: '#ffffff',
