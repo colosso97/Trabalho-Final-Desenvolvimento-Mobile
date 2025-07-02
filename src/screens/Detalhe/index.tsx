@@ -63,7 +63,6 @@ export default function Detalhe() {
 
             <TouchableOpacity style={styles.botao}>
               <Text style={styles.botaoTexto}>Quer ser meu dono?</Text>
-              https://wa.me/5524992454802?text=Ol%C3%A1!%20Quero%20adotar%20seu%20pet!
             </TouchableOpacity>
           </View>
         </>
