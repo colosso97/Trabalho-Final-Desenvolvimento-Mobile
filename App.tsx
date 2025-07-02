@@ -7,10 +7,9 @@ export default function App() {
   return (
     <AuthProvider>
       <NavigationContainer>
-        <StatusBar barStyle={'default'} />
+        <StatusBar barStyle={"default"} />
         <AppRouter />
       </NavigationContainer>
     </AuthProvider>
-
-  )
+  );
 }

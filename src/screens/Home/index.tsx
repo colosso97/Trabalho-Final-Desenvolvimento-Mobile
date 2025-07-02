@@ -1,12 +1,19 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./styles";
-import Feather from "@expo/vector-icons/Feather";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome6";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import api from "../../services/api";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import NetInfo from "@react-native-community/netinfo";
 
 interface DadosPet {
   id: number;
@@ -16,13 +23,16 @@ interface DadosPet {
 }
 
 type TabParamList = {
-  Perfil: undefined;
+  Perfil: undefined; /// undefined pq não tem parametro aqui
+  Detalhe: { id: number };
 };
 
 export default function Home() {
   const [pets, setPets] = useState<DadosPet[]>([]);
   const navigation = useNavigation<NavigationProp<TabParamList>>();
   const [filtroEspecie, setFiltroEspecie] = useState("");
+  const [isConnected, setIsConnected] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   //const buscarPets = async () => {
 
@@ -62,6 +72,35 @@ export default function Home() {
       setPets([]);
     }
   };
+
+  /// testando conexao
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(state.isConnected);
+      setIsLoading(false); // Marca como carregado após a primeira verificação
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.containerNet}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
+  if (!isConnected) {
+    return (
+      <View style={styles.offlineContainer}>
+        <Text style={styles.offlineText}>
+          Ops! Sem internet por aqui. Verifique sua conexão e tente novamente.
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView>
@@ -110,10 +149,12 @@ export default function Home() {
             </View>
           </TouchableOpacity>
 
-          <View style={styles.categoriaCard}>
-            <MaterialCommunityIcons name="rabbit" size={24} color="#7abfcf" />
-            <Text style={styles.categoriaTexto}>Outros</Text>
-          </View>
+          <TouchableOpacity onPress={() => buscarPorEspecie("outro")}>
+            <View style={styles.categoriaCard}>
+              <MaterialCommunityIcons name="rabbit" size={24} color="#7abfcf" />
+              <Text style={styles.categoriaTexto}>Outros</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -124,15 +165,20 @@ export default function Home() {
             <View style={styles.dogInfo}>
               <Text style={styles.dogNome}>{pet.nome}</Text>
               <Text style={styles.dogRaca}>{pet.raca}</Text>
+              <Text style={styles.dogId}>{pet.id}</Text>
             </View>
 
-            <View style={styles.detalhesContainer}>
-              <Image
-                source={require("../../../assets/patinhas.png")}
-                style={styles.patinha}
-              />
-              <Text style={styles.verDetalhes}>Ver Detalhes</Text>
-            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Detalhe", { id: pet.id })}
+            >
+              <View style={styles.detalhesContainer}>
+                <Image
+                  source={require("../../../assets/patinhas.png")}
+                  style={styles.patinha}
+                />
+                <Text style={styles.verDetalhes}>Ver Detalhes</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         ))}
       </View>
