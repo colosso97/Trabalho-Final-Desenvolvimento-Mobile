@@ -48,6 +48,21 @@ export default function Home() {
     buscarPets();
   }, []);
 
+  const buscarPorEspecie = async (especie: string) => {
+    try {
+      const response = await api.get(`pets/especie/${especie}`);
+      if (Array.isArray(response.data)) {
+        setPets(response.data);
+      } else {
+        console.error("Erro na resposta da API:", response.data);
+        setPets([]);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar pets dessa espécie", error);
+      setPets([]);
+    }
+  };
+
   return (
     <ScrollView>
       <TouchableOpacity onPress={() => navigation.navigate("Perfil")}>
@@ -65,7 +80,7 @@ export default function Home() {
           <Text style={styles.destaqueTexto}>Encontre seu novo pet</Text>
         </View>
         <Image
-          source={require("../../../assets/adocao.png")} // ajuste para sua imagem real
+          source={require("../../../assets/adocao.png")}
           style={styles.destaqueImagem}
           resizeMode="contain"
         />
@@ -74,18 +89,27 @@ export default function Home() {
       <View style={styles.cardCategorias}>
         <Text style={styles.categoriasTitulo}>Categorias</Text>
         <View style={styles.categoriasWrapper}>
-          <View style={styles.categoriaCard}>
-            <FontAwesome6 name="dog" size={24} color="#7abfcf" />
-            <Text style={styles.categoriaTexto}>Cachorros</Text>
-          </View>
-          <View style={styles.categoriaCard}>
-            <FontAwesome5 name="cat" size={24} color="#7abfcf" />
-            <Text style={styles.categoriaTexto}>Gatos</Text>
-          </View>
-          <View style={styles.categoriaCard}>
-            <MaterialCommunityIcons name="bird" size={24} color="#7abfcf" />
-            <Text style={styles.categoriaTexto}>Pássaros</Text>
-          </View>
+          <TouchableOpacity onPress={() => buscarPorEspecie("cachorro")}>
+            <View style={styles.categoriaCard}>
+              <FontAwesome6 name="dog" size={24} color="#7abfcf" />
+              <Text style={styles.categoriaTexto}>Cachorros</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => buscarPorEspecie("gato")}>
+            <View style={styles.categoriaCard}>
+              <FontAwesome5 name="cat" size={24} color="#7abfcf" />
+              <Text style={styles.categoriaTexto}>Gatos</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => buscarPorEspecie("passaro")}>
+            <View style={styles.categoriaCard}>
+              <MaterialCommunityIcons name="bird" size={24} color="#7abfcf" />
+              <Text style={styles.categoriaTexto}>Pássaros</Text>
+            </View>
+          </TouchableOpacity>
+
           <View style={styles.categoriaCard}>
             <MaterialCommunityIcons name="rabbit" size={24} color="#7abfcf" />
             <Text style={styles.categoriaTexto}>Outros</Text>
