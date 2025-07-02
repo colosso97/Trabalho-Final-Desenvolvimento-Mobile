@@ -18,7 +18,7 @@ export default function TelaSplash({ navigation }: any) {
                 duration={1400}
                 style={styles.logo}
             >
-                NovaApp
+                SerraPet
             </Animatable.Text>
             <Animatable.Text
                 animation="fadeInUp"
@@ -35,7 +35,7 @@ export default function TelaSplash({ navigation }: any) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#101010',
+        backgroundColor: '#7abfcf',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     },
     loading: {
         fontSize: 16,
-        color: '#bbbbbb',
+        color: '#eeeeee',
         marginTop: 20,
     },
 });
