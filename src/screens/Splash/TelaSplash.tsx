@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
-export default function LoadingScreen({ navigation }: any) {
+export default function TelaSplash({ navigation }: any) {
     useEffect(() => {
         const timer = setTimeout(() => {
-            navigation.replace('Home');
+            navigation.replace('AppTabs');
         }, 2500);
 
         return () => clearTimeout(timer);
