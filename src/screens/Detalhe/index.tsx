@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
 import styles from "../Detalhe/styles";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import api from "../../services/api";
@@ -18,7 +18,6 @@ type TabParamList = {
 };
 
 export default function Detalhe() {
-  //const [detalhes, setDetalhes] = useState<InfosPet[]>([]); ///
   const [detalhes, setDetalhes] = useState<Pet | null>(null);
   const route = useRoute<RouteProp<TabParamList, "Detalhe">>();
   const { id } = route.params;
@@ -40,7 +39,7 @@ export default function Detalhe() {
   }, [id]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {detalhes && (
         <>
           <Image
@@ -67,6 +66,6 @@ export default function Detalhe() {
           </View>
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 }

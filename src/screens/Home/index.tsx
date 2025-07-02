@@ -15,6 +15,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import api from "../../services/api";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import NetInfo from "@react-native-community/netinfo";
+import Feather from '@expo/vector-icons/Feather';
 
 interface DadosPet {
   id: number;
@@ -108,11 +109,8 @@ export default function Home() {
       <ScrollView>
         <TouchableOpacity onPress={() => navigation.navigate("Perfil")}>
           <View style={styles.cardUsuario}>
-            <Image
-              style={styles.imgUsuario}
-              source={require("../../../assets/usuario-exemplo.png")}
-            />
-            <Text style={styles.nomeUsuario}>Olá, Marcelo!</Text>
+            <Feather name="user" size={30} color="white" />
+            <Text style={styles.nome}>Olá!</Text> 
           </View>
         </TouchableOpacity>
 
